@@ -1,0 +1,118 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*按钮*/
+.check-butn{ height: 30px; line-height: 30px; display: inline-block; padding: 0 15px;color:#fff; font-size: 14px; background: #ff665a;text-decoration: none;}
+.check-butn:hover,.check-butn:focus{color:#fff; text-decoration: none;}
+.preview-butn{ background: #1bace7;color:#fff;padding:0 15px;height: 40px;line-height: 38px;text-align: center;display: inline-block;}
+.preview-butn:hover,.preview-butn:focus{text-decoration: none;color: #fff;}
+.vat{ vertical-align: top;}
+.v5eb-butn{color:#fff; height: 28px; line-height: 28px; padding: 0 15px; font-size: 14px; background: #5eb773;}
+.vfff-butn{color:#5eb773; height: 28px; line-height: 28px; padding: 0 15px; font-size: 14px; background: #fff;border:1px solid #5eb773;}
+.v5eb-butn:hover,.v5eb-butn:focus{color:#fff; text-decoration: none;}
+.vfff-butn:hover,.vfff-butn:focus{color:#5eb773;text-decoration: none;}
+
+/*新建课程*/
+.stepTab{ margin:30px 0 0;}
+.stepTab li{position: relative; float:left; width:24.2%; margin-right:1%; background: #f3f3f3; padding:14px 0; text-align: center; font-size: 18px;}
+.stepTab li:last-of-type{ margin-right: 0;}
+.stepTab li.on{color:#fff; background:#1bace7;}
+.stepTab li .st-t{ font-size: 18px; font-weight: bold; line-height: 24px;}
+.stepTab li.on i{ position: absolute;bottom:-27px; left: 45%; width:0;height:0;line-height:0;display:inline-block;border:14px solid transparent;border-top-color:#1bace7;}
+
+.right-query-input{ float: left;}
+.msg,.des{ vertical-align: middle; display: inline-block; line-height: 40px; margin-left: 10px;color:#c2c2c2;}
+.msg-txt{color:#c2c2c2; margin-top: 5px;}
+.des{color:#5c5c5c;}
+.dis-check input{ vertical-align: middle; margin-right: 5px;}
+.dis-price{ margin-top: 10px;}
+.dis-span{ margin-left: 30px;}
+.addend-teacher{ margin-bottom:15px;} 
+.addend-teacher span{ margin-right: 20px;}
+.inp{border: 1px solid #e8e8e8;padding: 3px 5px;min-width:150px;height: 40px;line-height: 38px;}
+.right-tarea{}
+.right-tarea textarea{border: 1px solid #e8e8e8;background: none;padding: 3px 5px;width:600px;height:150px;line-height: 24px;}
+/*添加视频*/
+.video-add{ margin-top: 50px;}
+.video-add .video-hd{ margin-bottom: 20px; padding-bottom: 10px; margin-bottom: 20px; border-bottom: 1px solid #ebebeb; font-size: 18px;}
+.video-add .vfff-butn{ margin-left: 20px;}
+.videom-top{ background: #f3f3f3; padding: 10px 20px;}
+.input-i{ margin: 0 5px; height: 38px; width: 38px; line-height: 36px; text-align: center; display: inline-block; border: 1px solid #c0c0c0;}
+.input-i input {background: none;width: 36px;height: 34px;margin: 0px;padding: 0px;text-align: center;border: none;background: #fff;line-height: 34px;}
+.videom-top .input-i{color:#ff665a;}
+.videom-box{ border: 1px solid #f3f3f3; padding: 20px; margin-bottom: 20px;}
+.videom-box .butn-top{ margin-bottom: 20px;}
+.videom-box .butn-top a{ margin-right: 20px; display: inline-block; height: 28px; line-height: 26px; padding: 0 15px; border: 1px solid #ebebeb;color:#5c5c5c;}
+.videom-box .butn-top a.focus{ background: #e9764a;border:1px solid #e9764a;color:#fff; }
+.butn-top a:hover,.butn-top a:focus{color:#5c5c5c; text-decoration: none;}
+.videom-table{ width: 100%;}
+.videom-table td{padding: 15px 0 15px 20px; border-top: 1px solid #f3f3f3; position: relative;}
+.videom-table td a{color:#5eb773;text-decoration: none;}
+.videom-table td a:hover{color:#5eb773; text-decoration: none;}
+.videom-table td input{ vertical-align: middle;}
+.videom-table tr:hover td{ background: #f8fcfe;}
+.videom-table .close-x{ position: absolute;right: 20px;top: 15px;width: 15px; height: 15px; display: inline-block; background:url(../../../images/mainback/close-x.png) no-repeat;}
+.close-x{ position: relative;right: 20px;top: 15px;width: 15px; height: 15px; display: inline-block; background:url(../../../images/mainback/close-x.png) no-repeat;float: right;}
+.videom-table .close-xxx{ top:27px;}
+
+.video-bom{ padding-left: 40px;}
+.prac-box{ margin-bottom: 20px;}
+.prac-table{ width: 100%;border: 1px solid #f3f3f3;}
+.prac-table th{background: #f3f3f3; padding: 10px 20px; text-align: left;color:#a3a3a3; font-weight: normal;}
+.prac-table td{padding: 15px 0 15px 20px; border-top: 1px solid #f3f3f3; position: relative;}
+
+/*课程管理*/
+.prac-table input{ vertical-align: middle; margin-right: 5px;}
+.prac-table .del{color:#ff665a;}
+.prac-table a{ margin-right: 5px;}
+.video-add .video-hd .msg-txt{ margin-left: 10px;font-size: 14px;}
+.video-hd{ position: relative;}
+.upload-study{ position: absolute; top: 0;left: 0;}
+.upload-study .right-upload-bar{width: 340px;}
+.upload-study a{ font-size: 14px; margin-left: 20px;}
+.upload-study a.cancel{color:#c0c0c0;}
+
+/*考试*/
+.video-topic{ margin-bottom: 10px;}
+.video-topic a{ margin-left: 30px;}
+.exam-table .select-area,.exam-table .right-query-input{ margin-right: 10px;}
+.exam-table .right-upload-td-left{ width: 105px;}
+.exam-inscribe{ margin-top: 20px;}
+.examins-table{ width: 100%;border: 1px solid #f3f3f3;}
+.examins-table th{background: #f3f3f3; padding: 10px 20px; text-align: left;color:#a3a3a3; font-weight: normal;}
+.examins-table td{padding: 15px 0 15px 20px; border-top: 1px solid #f3f3f3; position: relative;}
+.examins-table td p{ margin-right: 20px; padding: 10px 30px 10px 10px;height: 42px; border-bottom: 1px solid #f3f3f3;}
+.examins-table td p:last-of-type{border-bottom: none;}
+.examins-table td p:hover{ background: #f6fcfe;}
+.exam-canl{color:#ff665a;}
+.exam-canl:hover,.exam-canl:focus{color:#ff665a;}
+
+/*练习题*/
+.exam-num{ text-align: right;color:#ff665a; font-size: 18px; margin-top: 30px; margin-bottom: -10px;}
+.examins-table td p a{ margin-left: 10px;}
+/*popup 弹出层*/
+.window-cover{position: absolute;left: 0;top: 0;width: 100%;height: 100%;opacity:0.70;font-size: 1px;overflow: hidden; background: #000;}
+.popup{ width: 480px; position: fixed; left:50%;top:25%; margin-left: -240px;}
+.popup .popup-hd{ padding-left: 20px; width: 100%; height: 60px; line-height: 60px; background: #343943;color:#fff; font-size: 24px;}
+.popup .popup-bd{ background: #fff; width: 100%; padding: 20px;}
+.popup .closed{ font-size: 24px;color:#ff665a; position: absolute; top: 16px;right: 20px; line-height: 24px;}
+.popup .closed:hover,.popup .closed:focus{color:#ff665a; text-decoration: none;}
+.check-teach{ margin-bottom: 20px; border-bottom: 1px solid #f3f3f3;}
+.check-teach a{ margin-bottom: 10px; margin-right: 20px; display: inline-block; font-size: 16px;color:#5c5c5c; text-decoration: none;}
+.check-teach a i{margin-left: 5px; vertical-align: middle; width: 15px; height: 15px; display: inline-block; background:url(../../../../../images/mainback/close-x.png) no-repeat;}
+.check-teach a:hover{ text-decoration: none;}
+.serch-popup{}
+.serch-popup input{ width: 320px; padding-left: 10px; height: 40px; line-height: 40px; background: #f3f3f3; border:none;color:#c8c8c8; font-size: 14px;}
+.serch-popup a{ margin-left: 20px;}
+.serchp-list{ overflow: auto; max-height: 186px;}
+.serchp-list li{ margin-top: 10px;}
+.serchp-list li input{ vertical-align: middle; margin-right: 5px;}
+.upload-area textarea{border: 1px solid #e8e8e8;background: none;padding: 3px 5px;width:340px;height:100px;line-height: 24px;}
+.vam{ vertical-align: middle; display: inline-block; line-height: 40px;}
+.popup-butn{ padding: 20px 0; text-align: center; background: #f3f3f3;}
+
+.right40 {right: 40px;}
+.advice-input {padding: 10px 0;font-size: 16px;}
+.advice-input .input-i {width: 82px;margin: 0 10px;}
+.advice-input .input-i input {width: 80px;}
+.right-query-txt01 {float: left;line-height: 40px;padding: 0 5px;}

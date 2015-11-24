@@ -1,0 +1,22 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+    <definition name="baseLayout" template="/WEB-INF/jsp/layout/layout.jsp">
+        <put-attribute name="title" value="Manage System" />
+        <put-attribute name="header" value="/WEB-INF/jsp/layout/header.jsp" />
+        <put-attribute name="menu" value="" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/layout/footer.jsp" />
+    </definition>
+
+    <definition name="index" template="/WEB-INF/jsp/index.jsp">
+    </definition>
+
+    <definition name="login" template="/WEB-INF/jsp/login.jsp">
+    </definition>
+
+    <definition name="help" template="/WEB-INF/jsp/help.jsp">
+    </definition>
+
+</tiles-definitions>

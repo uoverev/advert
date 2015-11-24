@@ -1,0 +1,11 @@
+﻿<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+    <definition name="module.place.*" extends="baseLayout">
+        <put-attribute name="title" value="资讯管理 " />
+        <put-attribute name="menu" value="/WEB-INF/jsp/module/security/menu_security.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/info/place/{1}.jsp" />
+    </definition>
+
+</tiles-definitions>

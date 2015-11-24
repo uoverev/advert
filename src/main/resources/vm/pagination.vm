@@ -1,0 +1,21 @@
+<nav>
+    <ul class="pagination">
+        #if($currentPage >= 2)
+            <li><a href="${pageUrl}pageNo=1">首页</a></li>
+        #else
+            <li class="disabled"><span>首页</span></li>
+        #end
+        #foreach ($number in [$pageStart..$pageEnd])
+            #if($number eq $currentPage)
+                <li class="active"><span>$number</span></li>
+            #else
+                <li><a href="${pageUrl}pageNo=${number}">$number</a></li>
+            #end
+        #end
+        #if($currentPage < $totalPage)
+            <li><a href="${pageUrl}pageNo=${totalPage}">尾页</a></li>
+        #else
+            <li class="disabled"><span>尾页</span></li>
+        #end
+    </ul>
+</nav>

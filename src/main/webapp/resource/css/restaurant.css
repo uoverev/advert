@@ -1,0 +1,19 @@
+INPUT.input_line
+{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #c1dad7;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	background-color: transparent;
+}
+/*Page*/
+.page {padding:15px 0 30px;text-align:center;}
+.page .pg_lst a, .page .pg_lst .pg_pre, .page .pg_lst .pg_nxt {display:inline-block;height:40px;padding:0 15px;font:16px/38px \5b8b\4f53;color:#fff;background:#5bc2c5;vertical-align:middle;}
+.page .pg_lst a {color:#5bc2c5;font-family:Arial, Helvetica, sans-serif;background:#f5f5f5;}
+.page .pg_lst a:hover, .page .pg_lst a.on {background:#5bc2c5;color:#fff;text-decoration:none;}
+.page .pg_lst .pg_pre {border-radius:1px 0 0 1px;}
+.page .pg_lst .pg_nxt {border-radius:0 1px 1px 0;}
+.page .pg_lst span.pg_pre, .page .pg_lst span.pg_nxt {color:#ccc;background:#f5f5f5;}
+.page .pg_jmp {display:none;}

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <description>缓存配置 eh cache</description>
+        <property name="cacheManagerConfigFile" value="classpath:spring/security2/ehcache-shiro.xml" />
+    </bean>
+
+    <bean id="sampleRealm" class="com.better.module.security.shiro.realm.SampleRealm">
+        <description>自定义 shiro realm</description>
+        <property name="name" value="sampleRealm"/>
+        <!-- 用户授权信息Cache -->
+        <property name="cacheManager" ref="shiroEhcacheManager" />
+        <property name="authorizationCacheName" value="sampleRealm" />
+        <!-- 获取用户及授权信息 service 使用者实现 -->
+        <property name="subjectService" ref="sysUserService" />
+        <!-- 密码加密规则 -->
+        <property name="credentialsMatcher">
+            <!-- 密码匹配 提供多种加密算法 SHA-512|SHA-265|SHA-1|MD5 -->
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- hash 算法  SHA-512|SHA-265|SHA-1|MD5-->
+                <property name="hashAlgorithmName" value="SHA-1"/>
+                <!-- hash 次数， 默认为 1 -->
+                <property name="hashIterations" value="1024" />
+                <!-- true|false  默认为 true; true - 16进制编码, false base64 编码 -->
+                <!--<property name="storedCredentialsHexEncoded" value="false"/>-->
+            </bean>
+            <!-- 自定义加密规则 <bean class="com.feinno.wyx.security.shiro.credential.B64HashedCredentialsMatcher" />-->
+        </property>
+        <!-- 自定义权限转换 -->
+        <property name="permissionResolver">
+            <bean class="com.better.module.security.shiro.realm.UrlPermissionResolver" />
+        </property>
+    </bean>
+
+
+    <!-- shiro 安全管理 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="sampleRealm"/>
+        <!-- EhCache -->
+        <property name="cacheManager" ref="shiroEhcacheManager" />
+        <!-- 记住我配置 -->
+        <property name="rememberMeManager">
+            <!-- rememberMe管理器 -->
+            <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+                <!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
+                <property name="cipherKey"
+                          value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+                <property name="cookie">
+                    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+                        <constructor-arg value="rememberMe"/>
+                        <property name="httpOnly" value="true"/>
+                        <!-- 记住我时间 单位 秒 (2592000 = 30day) -->
+                        <property name="maxAge" value="2592000"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+
+        <!-- 会话管理 -->
+        <!--<property name="sessionManager" ref="sessionManager"/>-->
+    </bean>
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- AOP式方法级权限检查  -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- shiro 过滤器 需加入 web.xml中配置 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login.html"/>
+        <property name="successUrl" value="/module/security/index.html"/>
+        <!-- 没有权限的跳转页面 -->
+        <property name="unauthorizedUrl" value="/error/403.jsp"/>
+        <!-- 过滤链 -->
+        <property name="filters">
+            <util:map>
+                <entry key="authc">
+                    <bean class="org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter"/>
+                </entry>
+                <entry key="urlAuthr">
+                    <bean class="com.better.module.security.shiro.filter.UrlResourceAuthorizationFilter" />
+                </entry>
+                <entry key="login">
+                    <bean class="com.better.module.security.shiro.filter.LoginFormAuthenticationFilter">
+                        <!-- 对应 页面的 用户名 -->
+                        <property name="usernameParam" value="username" />
+                        <!-- 对应 页面的 密码 -->
+                        <property name="passwordParam" value="password" />
+                        <!-- 对应 页面的 记住我 boolean 类型 -->
+                        <property name="rememberMeParam" value="rememberMe" />
+                        <!-- 登陆页URL -->
+                        <property name="loginUrl" value="/login.html" />
+                        <!-- 登陆成功跳转页 -->
+                        <property name="successUrl" value="/module/security/index.html"/>
+                        <!-- 登陆错误，在request 设置错误kye的值 -->
+                        <property name="failureKeyAttribute" value="loginFailure" />
+                        <!-- 登陆监听 -->
+                        <property name="listeners">
+                            <list>
+                                <ref bean="loginListener" />
+                            </list>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="logout">
+                    <bean class="org.apache.shiro.web.filter.authc.LogoutFilter">
+                        <property name="redirectUrl" value="/login.html" />
+                    </bean>
+                </entry>
+                <entry key="user">
+                    <bean class="com.better.module.security.shiro.filter.RememberMeUserFilter">
+                        <property name="listeners">
+                            <list>
+                                <ref bean="loginListener" />
+                            </list>
+                        </property>
+                    </bean>
+                </entry>
+            </util:map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                <!--
+                anon  不进行身份和权限认证
+                authc 身份认证
+                user 记住我的身份认证
+                urlAuthr url权限认证
+                login 登陆
+                logout 退出
+                -->
+                /module/security/unauthorized.html = anon
+                /login.html = login
+                /logout.html = logout
+                /module/security/index.html = user
+                /**=authc, urlAuthr
+            </value>
+        </property>
+    </bean>
+
+</beans>

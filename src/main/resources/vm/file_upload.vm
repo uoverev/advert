@@ -1,0 +1,28 @@
+<script type="text/javascript">
+    function show$!{name}Dialog(elm, opts) {
+        require(["util"], function(util){
+            var btn = $(elm);
+            var ipt = btn.parent().prevAll().last();
+            var val = ipt.val();
+            var img = ipt.parent().next().children();
+            util.image(val, function(url){
+                img.get(0).src = url.url;
+                ipt.val(url.filename);
+                /*ipt.attr("filename",url.filename);
+                ipt.attr("url",url.url);*/
+            }, opts);
+        });
+    }
+</script>
+<div class="input-group ">
+    <input type="text" name="$!{name}" value="$!{imgUrl}" class="form-control" autocomplete="off">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="show$!{name}Dialog(this, '$!{imgUrl}');">选择图片</button>
+    </span>
+</div>
+<div class="input-group " style="margin-top:.5em;">
+    <img src="#if(!$imgUrl)/resource/images/nopic.jpg#else$!{imgUrl}#end"
+         onerror="this.src='/resource/images/nopic.jpg'; this.title='图片未找到.'"
+         class="img-responsive img-thumbnail"
+         width="150" />
+</div>

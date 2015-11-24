@@ -1,0 +1,22 @@
+<script charset="utf-8" src="kindeditor-min.js"></script>
+<script charset="utf-8" src="kindeditor.js"></script>
+<script charset="utf-8" src="lang/zh_CN.js"></script>
+<textarea style="height:200px;" class="span7 basic-content-new" cols="70"
+                                      id="description" name="description"
+                                      autocomplete="off">aaaaaaaa</textarea>
+<script>
+        KindEditor.ready(function(K) {
+                window.editor = K.create('#description',
+					{
+						allowImageUpload:false,
+						allowFlashUpload:false,
+						allowMediaUpload:false,
+						allowFileUpload:false,
+						allowFileManager:false,
+						themeType : 'simple',
+						resizeType : 0
+					}
+					);
+        });
+</script>
+

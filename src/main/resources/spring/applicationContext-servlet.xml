@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <context:property-placeholder ignore-resource-not-found="true"
+                                  location="classpath:/application.properties" />
+
+    <!-- 默认Controller扫描，如果以com.feinno开头的项目和组件不用再声明。自动扫描且只扫描@Controller -->
+     
+    <context:component-scan base-package="com.advert.cms" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    
+    <!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+    <mvc:default-servlet-handler />
+
+    <!-- 定义无Controller的path<->view直接映射 -->
+    <mvc:view-controller path="/" view-name="index" />
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.better.framework.common.web.support.DynamicProxyObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json</value>
+                        <value>text/json</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+<!--
+
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="/manage/error/error.jsp" />
+    </bean>
+-->
+
+    <!-- 定义JSP文件的位置 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+        <property name="order" value="2" />
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass">
+            <value>
+                org.springframework.web.servlet.view.tiles2.TilesView
+            </value>
+        </property>
+        <property name="order" value="1" />
+    </bean>
+    <bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/conf/tiles/tiles.xml</value>
+                <value>/WEB-INF/jsp/common/tiles-module-common.xml</value>
+                <value>/WEB-INF/jsp/module/security/tiles-module-security.xml</value>
+                <value>/WEB-INF/jsp/test_u/tiles-module-testU.xml</value>
+            </list>
+        </property>
+    </bean>
+
+	<!-- 拦截器 -->
+	<!-- 处理全局选项 -->
+	<!--  
+	<mvc:interceptors>
+		<bean class="com.feinno.eord.web.external.aop.S1GlobalSettingInterceptor"></bean>
+	</mvc:interceptors>
+	-->
+	 
+	 
+    <!-- 文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+        <property name="maxUploadSize">
+            <value>104857600</value><!-- 上传文件大小限制为100M，100*1024*1024 -->
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
+    </bean>
+    
+    <!-- Spring restTemplate 超时配置 -->
+	<bean id="requestFactory" class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+		  <property name="readTimeout" value="60000"/>
+		  <property name="connectTimeout" value="10000"/>
+	</bean>
+    <!-- Spring restTemplate 配置 -->
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+	  <constructor-arg ref="requestFactory"/>
+	</bean>
+</beans>

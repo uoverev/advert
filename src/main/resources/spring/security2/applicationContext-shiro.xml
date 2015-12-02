@@ -151,7 +151,7 @@
                 /login.html = login
                 /logout.html = logout
                 /module/security/index.html = user
-                /**=authc, urlAuthr
+                <!-- /**=authc, urlAuthr -->
             </value>
         </property>
     </bean>

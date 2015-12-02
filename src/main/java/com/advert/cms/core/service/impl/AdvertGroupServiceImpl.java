@@ -11,4 +11,9 @@ import com.better.framework.common.service.EntityServiceImpl;
 @Service("advertGroupService")
 public class AdvertGroupServiceImpl extends EntityServiceImpl<AdvertGroup, AdvertGroupDao> implements AdvertGroupService {
 
+	@Override
+	public AdvertGroup getAdvertGroupByCode(String code) {
+		return this.getEntityDao().getAdvertGroupByCode(code);
+	}
+
 }

@@ -13,4 +13,10 @@ import com.better.framework.common.service.EntityService;
  */
 public interface AdvertGroupService extends EntityService<AdvertGroup> {
 
+	/**
+	 * 通过客户端唯一编码查询广告分组信息
+	 * @param code
+	 * @return
+	 */
+	public AdvertGroup getAdvertGroupByCode(String code);
 }

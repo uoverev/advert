@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import com.advert.cms.web.controller.common.CommonController;
  *
  */
 @Controller
+@RequestMapping("module/advert")
 public class AdvertAppServer extends CommonController {
 	
 	//日志
@@ -57,7 +59,30 @@ public class AdvertAppServer extends CommonController {
 	@RequestMapping("playList")
 	public JsonResult<AdvertDto> playList(@RequestParam(value="code",required=true)String code){
 		JsonResult<AdvertDto> result = new JsonResult<AdvertDto>();
-		
+		if(StringUtils.isNotBlank(code)){
+			try {
+				AdvertDto dto = advertService.getAdvertDto(code);
+				if(null != dto){
+					result.appendData("advert",dto);
+					result.setSuccess(true);
+					result.setCode("0");
+					result.setMessage("查询播放列表成功!");
+					return result;
+				}
+				result.setSuccess(false);
+				result.setCode("-1");
+				result.setMessage("没有查询到相关播放列表!");
+			} catch (Exception e) {
+				result.setSuccess(false);
+				result.setCode("-1");
+				result.setMessage("查询播放列表失败!");
+				logger.error("查询播放列表失败:{}",e);
+			}
+		}else{
+			result.setSuccess(false);
+			result.setCode("-1");
+			result.setMessage("参数错误!");
+		}
 		return result;
 	}
 	

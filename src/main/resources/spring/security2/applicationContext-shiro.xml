@@ -147,6 +147,7 @@
                 login 登陆
                 logout 退出
                 -->
+                /module/advert/* = anon
                 /module/security/unauthorized.html = anon
                 /login.html = login
                 /logout.html = logout

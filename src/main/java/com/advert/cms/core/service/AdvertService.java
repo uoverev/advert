@@ -1,5 +1,7 @@
 package com.advert.cms.core.service;
 
+import java.util.List;
+
 import com.advert.cms.core.domain.Advert;
 import com.advert.cms.core.domain.dto.AdvertDto;
 import com.better.framework.common.service.EntityService;
@@ -20,5 +22,12 @@ public interface AdvertService extends EntityService<Advert> {
 	 * @return
 	 */
 	public AdvertDto getAdvertDto(String code);
+	
+	/**
+	 * 通过广告分组id查询广告列表
+	 * @param groupId
+	 * @return
+	 */
+	public List<Advert> queryAdvertByGroupId(Long groupId);
 
 }

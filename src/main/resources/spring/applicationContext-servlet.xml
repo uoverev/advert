@@ -76,7 +76,6 @@
                 <value>/WEB-INF/conf/tiles/tiles.xml</value>
                 <value>/WEB-INF/jsp/common/tiles-module-common.xml</value>
                 <value>/WEB-INF/jsp/module/security/tiles-module-security.xml</value>
-                <value>/WEB-INF/jsp/test_u/tiles-module-testU.xml</value>
             </list>
         </property>
     </bean>

@@ -87,6 +87,7 @@ public class AdvertAppServer extends CommonController {
 			result.setSuccess(false);
 			result.setCode("-1");
 			result.setMessage("统计次数失败！");
+			logger.error("保存统计失败：{}",e);
 		}
 		return result;
 	}
